@@ -43,8 +43,12 @@
     float fontSize=(MIN(size.height,size.width))*scale;
     CGRect textRect = CGRectMake(size.width/2-(fontSize/2)*1.2, size.height/2-fontSize/2, fontSize*1.2, fontSize);
     [iconColor setFill];
-    [textContent drawInRect: textRect withFont: [UIFont fontWithName:@"FontAwesome" size:(float)((int)fontSize)] lineBreakMode: NSLineBreakByWordWrapping alignment: NSTextAlignmentCenter];
     
+    NSMutableParagraphStyle *ps = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    [ps setLineBreakMode:NSLineBreakByWordWrapping];
+    [ps setAlignment:NSTextAlignmentCenter];
+    
+    [textContent drawInRect:textRect withAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"FontAwesome" size:(float)((int)fontSize)], NSParagraphStyleAttributeName: ps}];
     
     //Image returns
     UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
